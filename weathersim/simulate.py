@@ -80,7 +80,7 @@ class SimulateWeather(object):
         columns = ["city", "position", "localtime", "condition", "temperature", "pressure", "humidity"]
 
         with open(kwargs["file"], "w") as fout:
+            fout.write("Location|Position|LocalTime|Conditions|Temperature|Pressure|Humidity\n")
             for indx, row in self.df_simulated_weather.iterrows():
-
                 fout.write("|".join(["+" + str(row[column]) if column == "temperature" and row[column] > 0
                                      else str(row[column]) for column in columns]) + "\n")
