@@ -28,7 +28,7 @@ To execute the unit tests run
 ```
 python -m  unittest tests.unittests
 ```
-## usage
+## Usage
 The code has been tested on ptyhon2.7 only. For help please run 
 ```
 python main.py --help
