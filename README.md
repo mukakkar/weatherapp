@@ -1,5 +1,5 @@
 # WeatherApp
-The WeatherApp simulates the weather conditions and stores the output as "|" separated values in a text file. The app uses google and DarkSky API's to generate weather statistics, DarkSKy API has limit of 1000 free requests per day thus random samples are generated after the threshold is reached. The App allows user either to specify on command line the number of samples to generate or specify a csv file along with number of samples to generate. The csv file must store the city and country information seperated by "," with each entry should be terminated by newline. 
+The WeatherApp simulates the weather conditions and stores the output as "|" separated values in a text file. The app uses google and DarkSky API's to generate weather statistics, DarkSKy API has limit of 1000 free requests per day thus random samples are generated after the threshold is reached. The App allows userto specify on command line either the samples(count) to generate or specify a csv file along with sample count. The csv file stores the city and country information seperated by "," with each entry terminated by newline. 
 
 The app is segregated into following modules
 
