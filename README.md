@@ -1,5 +1,5 @@
-# weatherapp
-The WeatherApp simulates the weather conditions and stores the output as "|" seperated values in a text file. The app uses google and DarkSky API's to generate weather statistics, DarkSKy API has limit of 1000 free requests per day thus randmon samples are generated after the treshold is reached. The App allows user either to specify on command line the number of samples to generate or specify a csv file along with number of samples to generate. The csv file must store the city and country information seperated by "," with each entry should be terminated by newline. 
+# WeatherApp
+The WeatherApp simulates the weather conditions and stores the output as "|" separated values in a text file. The app uses google and DarkSky API's to generate weather statistics, DarkSKy API has limit of 1000 free requests per day thus random samples are generated after the threshold is reached. The App allows userto specify on command line either the samples(count) to generate or specify a csv file along with sample count. The csv file stores the city and country information seperated by "," with each entry terminated by newline. 
 
 The app is segregated into following modules
 
@@ -14,7 +14,7 @@ The app is segregated into following modules
 - main : main module to prase arguments and stich other modules together
 
 ## Dependencies 
-weatherapp requires python2.7 along with following python modules
+WeatherApp requires python2.7 along with following python modules
 - requests==2.21.0
 - pandas==0.24.2
 
@@ -38,7 +38,7 @@ For help regarding a specific option , specify the option followed by --help
 ```
 python main.py sample --help
 ```
-For option where user enters the number of samples , please execute 
+For option where user enters the number of samples, please execute 
  ```
  python main.py sample <no_of_samples> <google_api_Key> <darksky_api_key>
  ```
@@ -46,10 +46,3 @@ For option where user  inputs file location and samples , please execute
  ```
   python main.py csvfile <csv_file_location> <no_of_samples> <google_api_Key> <darksky_api_key>
  ```
-
-
-
-  
-
-
-
