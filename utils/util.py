@@ -29,9 +29,9 @@ def get_condition(humidity, temperature):
     :return:
     """
 
-    if (humidity > 85) & (temperature > 0):
+    if (humidity > 80) & (temperature > 0):
         condition = "Rain"
-    elif (humidity > 75) & (temperature < 0):
+    elif (humidity > 70) & (temperature < 0):
         condition = "Snow"
     else:
         condition = "Sunny"

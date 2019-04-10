@@ -64,7 +64,7 @@ class SimulateWeather(object):
                 "condition": condition,
                 "temperature": temperature,
                 "pressure": pressure,
-                "humidity": humidity
+                "humidity": int(humidity)
             })
 
         # generate the simulated weather panda data frame
