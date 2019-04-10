@@ -43,7 +43,7 @@ class SimulateWeather(object):
             # generate random sample if matching records aren't found
             if not len(df_matching_records):
                 logger.info("generating random weather samples")
-                temperature, pressure, humidity, condition = util.get_random_sample(rows, city, country)
+                temperature, pressure, humidity, condition = util.get_existing_random_sample(rows, city, country)
             else:
                 # generate the weather as mean of existing values
                 logger.info("generating weather samples based upon mean of existing values")
@@ -81,4 +81,6 @@ class SimulateWeather(object):
 
         with open(kwargs["file"], "w") as fout:
             for indx, row in self.df_simulated_weather.iterrows():
-                fout.write("|".join([str(row[column]) for column in columns]) + "\n")
+
+                fout.write("|".join(["+" + str(row[column]) if column == "temperature" and row[column] > 0
+                                     else str(row[column]) for column in columns]) + "\n")

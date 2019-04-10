@@ -13,7 +13,7 @@ class GenerateWeather(object):
     def __init__(self, cities, api_key_google, api_key_dark_sky):
 
         """
-
+        Default constructor
         :param cities: list of cities to generate the weather information for
         :param api_key_google: google API key
         :param api_key_dark_sky: DarkSky API Key
@@ -24,7 +24,7 @@ class GenerateWeather(object):
 
     def generate_weather(self, samples_to_generate):
         """
-
+        Function to generate weather statistics which are later used by the simulator module
         :return: simulated weather details in a python list with each element as a python dictionary
         """
         rows = []
@@ -43,7 +43,7 @@ class GenerateWeather(object):
             longitude, latitude, elevation = coordinates.get_coordinates()
 
             # DarkSky API only provides 1000 free API calls per day, in case it's not feasible to get the sample data
-            # from API generate random samples
+            # from API generate values from existing  or random samples
             date = util.gen_random_date()
             stats = APIWeatherStats(longitude, latitude)
             stats.generate(**{
@@ -54,8 +54,8 @@ class GenerateWeather(object):
             temperature, humidity, pressure, condition = stats.get_stats()
 
             if (temperature, humidity, pressure) == (0, 0, 0):
-                # unable to fetch Data from API generate random values
-                temperature, pressure, humidity, condition = util.get_random_sample(rows, city, country)
+                # unable to fetch Data from API generate  values using existing records
+                temperature, pressure, humidity, condition = util.get_existing_andom_sample(rows, city, country)
 
             logger.info("""location={location},year={year},month={month},day={day}, latitude={latitude},
             longitude={longitude},elevation={elevation},temperature={temperature},humidity={humidity}, 

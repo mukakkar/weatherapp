@@ -39,7 +39,7 @@ def get_condition(humidity, temperature):
     return condition
 
 
-def get_random_sample(records, city, country):
+def get_existing_random_sample(records, city, country):
 
     """
     Function to generate a random sample based upon the  records already available in the list .
