@@ -1,0 +1,27 @@
+{
+	"version": 1,
+	"disable_existing_loggers": "False",
+	"formatters": {
+		"standard": {
+			"format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+		}
+	},
+	"handlers": {
+		"filehandler": {
+			"level": "INFO",
+			"class": "logging.handlers.RotatingFileHandler",
+			"formatter": "standard",
+			"filename": "info.log",
+			"maxBytes": 10485760,
+			"backupCount": 20,
+			"encoding": "utf8"
+		}
+	},
+	"loggers": {
+		"": {
+			"handlers": ["filehandler"],
+			"level": "INFO",
+			"propagate": "False"
+		}
+	}
+}
