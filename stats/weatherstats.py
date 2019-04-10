@@ -2,8 +2,6 @@ import requests
 import logging
 from utils import util
 
-logger = logging.getLogger(__name__)
-
 
 class WeatherStats(object):
     """
@@ -58,6 +56,7 @@ class APIWeatherStats(WeatherStats):
         :return:
         """
 
+        logger = logging.getLogger(__name__)
         dark_sky_uri = "{url}{key}/{lat},{lng},{time}".format(
             url=kwargs.get("url", "https://api.darksky.net/forecast/"),
             key=kwargs["key"],

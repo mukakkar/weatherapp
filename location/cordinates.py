@@ -1,8 +1,6 @@
 import requests
 import logging
 
-logger = logging.getLogger(__name__)
-
 
 class Coordinates(object):
     """
@@ -18,6 +16,7 @@ class Coordinates(object):
         self.latitude = 0
         self.elevation = 0
         self.location = location
+
 
     def generate(self, **kwargs):
 
@@ -54,6 +53,7 @@ class APICoordinates(Coordinates):
         :param kwargs: python dictionary with url's to fetch coordinates and the API Key
         :return:
         """
+        logger = logging.getLogger(__name__)
         try:
             # Fetch longitude and latitude
             logger.info("Fetching longitude and latitude for location={location}".format(location=self.location))

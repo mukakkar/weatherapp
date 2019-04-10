@@ -1,3 +1,4 @@
+import logging
 import utils.util as util
 import random
 import pandas as pd
@@ -20,6 +21,7 @@ class SimulateWeather(object):
 
         # list to hold intermediate weather stats
         rows = []
+        logger = logging.getLogger(__name__)
         # cities information fetched from data frame
         cities_info = [self.df.loc[self.df["city"] == city,
                                     ["city", "country", "latitude", "longitude", "elevation"]].values[0]
@@ -28,17 +30,23 @@ class SimulateWeather(object):
         for i in range(samples_to_generate):
 
             # fetch coordinates and country information
-            city, country, latitude, longitude, elevation = cities_info[random.randint(0, len(cities_info))]
+            city, country, latitude, longitude, elevation = cities_info[random.randint(0, len(cities_info) - 1)]
             # generate a random date and fetch records
             date = util.gen_random_date()
+            logger.info("generating weather samples for {city},{country},{date}".format(
+                city=city,
+                country=country,
+                date=date.isoformat()))
             df_matching_records = self.df.loc[
                 (self.df["city"] == city) & (self.df["month"] == date.month)]
 
             # generate random sample if matching records aren't found
             if not len(df_matching_records):
+                logger.info("generating random weather samples")
                 temperature, pressure, humidity, condition = util.get_random_sample(rows, city, country)
             else:
                 # generate the weather as mean of existing values
+                logger.info("generating weather samples based upon mean of existing values")
                 temperature = df_matching_records["temperature"].mean()
                 pressure = df_matching_records["pressure"].mean()
                 humidity = df_matching_records["humidity"].mean()

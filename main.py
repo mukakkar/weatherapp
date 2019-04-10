@@ -4,6 +4,7 @@ import logging
 import argparse
 import logging.config
 import pandas as pd
+import csv
 from weathergen.generator import GenerateWeather
 from weathersim.simulate import SimulateWeather
 
@@ -30,6 +31,7 @@ if __name__ == "__main__":
 
     # Set up the logging for the program
     set_up_logging('./conf/logging.json')
+    #logger = logging.getLogger(__name__)
     cities = []
     samples_to_generate = 10
 
@@ -40,21 +42,22 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("Weather Simulator")
     subparsers = parser.add_subparsers(help="Weather Simulation parser Help", dest="cmd")
     # samples subparser and Arguments definition
-    sp = subparsers.add_parser("samples", help='Samples ')
-    sp.add_argument("samples", help="Number of Samples to generate should be < 1000 ")
+    sp = subparsers.add_parser("sample", help='Command to generate weather sample based on user input ')
+    sp.add_argument("samples", type=int, help="Number of Samples to generate should be < 1000 ")
     sp.add_argument("gapikey", help="Google API Key to fetch geo-coordinates")
     sp.add_argument("dapikey", help="DarkSky API Key to fetch ")
     # fileloc subparser and Arguments definition
-    sp = subparsers.add_parser("fileloc", help="File location")
+    sp = subparsers.add_parser("csvfile", help="Command to generate weather sample based on file contents")
     sp.add_argument("file", help="CSV file with cities and country information ")
+    sp.add_argument("samples", type=int, help="Number of Samples to generate should be < 1000 ")
     sp.add_argument("gapikey", help="Google API Key to fetch geo-coordinates")
     sp.add_argument("dapikey", help="DarkSky API Key to fetch ")
     args = parser.parse_args()
 
-    logging.info("Weather data generation starting now")
+   # logger.info("Weather data generation starting now")
 
-    if args.cmd == "samples":
-        # Simulate the weather for 10 cities mentioned below  with total of 100 records
+    if args.cmd == "sample":
+        # Simulate the weather for 10 cities mentioned below
         cities = [("Sydney", "Australia"), ("Melbourne", "Australia"), ("Brisbane", "Australia"),
                   ("Perth", "Australia"), ("Delhi", "India"), ("Bogota", "Colombia"), ("Beijing", "China"),
                   ("Brussels", "Belgium"), ("Sofia", "Bulgaria"), ("Ottawa", "Canada")]
@@ -63,13 +66,14 @@ if __name__ == "__main__":
     else:
         # Simulate the weather for cities information fetched from the csv file
         with open(args.file) as fin:
-            cities = [tuple(line.strip().split(",")) for line in fin]
-            samples_to_generate = 10
+            cities_reader=csv.reader(fin, delimiter=',', quotechar='\"')
+            cities = [tuple(row) for row in  cities_reader]
+            samples_to_generate = args.samples
 
     gw = GenerateWeather(cities, args.gapikey, args.dapikey)
     records = gw.generate_weather(samples_to_generate)
 
-    logging.info("Weather data generation finished . Staring the simulation now")
+   # logger.info("Weather data generation finished . Staring the simulation now")
 
     sim = SimulateWeather(pd.DataFrame(records))
     sim.simulate(samples_to_generate)

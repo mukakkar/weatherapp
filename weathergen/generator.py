@@ -3,7 +3,6 @@ import random
 from location.cordinates import APICoordinates
 from stats.weatherstats import APIWeatherStats
 import utils.util as util
-logger = logging.getLogger(__name__)
 
 
 class GenerateWeather(object):
@@ -29,10 +28,12 @@ class GenerateWeather(object):
         :return: simulated weather details in a python list with each element as a python dictionary
         """
         rows = []
+        logger = logging.getLogger(__name__)
+
         for i in range(samples_to_generate):
 
             # Select a random city from the cities list
-            city, country = self.cities[random.randint(0, len(self.cities))]
+            city, country = self.cities[random.randint(0, len(self.cities) - 1)]
             coordinates = APICoordinates(",".join([city, country]))
             coordinates.generate(**{
                 "url": "https://maps.googleapis.com/maps/api/geocode/json",
@@ -74,6 +75,7 @@ class GenerateWeather(object):
             # append the weather information to the list
             rows.append({
                     "city": city,
+                    "country": country,
                     "year": date.year,
                     "month":  date.month,
                     "day":  date.day,
